@@ -1,0 +1,73 @@
+
+{% extends "base.html" %}
+
+{% block cuerpo %}
+<div class="row"><!-- la fila-->
+<div class="col-sm-12 col-md-4 col-lg-4 col-xl-4"> <!--Columna izquierda-->
+
+<h1>Ingresar Productos<h1>
+  <div class="card"><!-- La tarjeta-->
+    <div class="card-body">
+      <form action="registrarMateria/" method="POST">{% csrf_token %}<!-- falta action-->
+        <div class="form-group">
+          <input type="text" id="txtcodigo" name="txtcodigo" class='form-control' placeholder="Codigo producto" minlength="1" maxlength="6" required>
+        </div>
+        <div class="form-group py-3">
+          <input type="text" id="txtmateria" name="txtmateria"  class='form-control' placeholder="Nombre Materia" maxlength="100" required>
+        </div>
+        <div class="form-group py-2">
+          <input type="text" id="numcreditos" name="numcreditos" class='form-control' placeholder="Numero de creditos" min="1" max="9" value="1" required>
+        </div>
+        <div class="form-group py-2">
+          <button type="submit" class="btn btn-primary">Guardar Producto</button>
+        </div>
+      </form>
+    </div>
+  </div><!-- La tarjeta-->
+
+</div> <!--Columna izquierda-->
+
+<div class="col-sm-12 col-md-8 col-lg-8 col-xl-8"> <!--Columna derecha-->
+  <h1>Listado de Productos<h1>
+    <!-- La tabla-->
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Codigo</th>
+          <th scope="col">Precio</th>
+          <th scope="col">Marca</th>
+          <th scope="col">Calidad</th>
+          <th scope="col">Recibido</th>
+          <th scope="col">Proovedor</th>
+          <th scope="col">Cantidad</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for m in Productos %}
+  <tr>
+    <td> {{forloop.counter}}</td>
+    <td> {{m.Id_Producto}}</td>
+    <td> {{m.Precio}}</td>
+    <td> {{m.Marca}}</td>
+    <td> {{m.Calidad}}</td>
+    <td> {{m.Recibido}}</td>
+    <td> {{m.Proovedor}}</td>
+    <td> {{m.Cantidad}}</td>
+
+    <td><a href="seleccionarProducto/{{m.codigo}}" class="btn btn-info">Editar</a></td><!--Falta-->
+    <td><a href="borrarProducto/{{m.codigo}}" class="btn btn-danger">Borrar</a></td><!--Falta-->
+  </tr>
+      
+      
+      
+      
+      {% endfor %}
+
+
+      </tbody>
+    </table>
+    <!-- La tabla-->
+</div> <!--Columna derecha-->
+</div> <!-- la fila-->
+{% endblock %}
